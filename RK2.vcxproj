@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="RK2.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tasks_rk2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tasks_rk2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
