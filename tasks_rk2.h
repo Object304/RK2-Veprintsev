@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <queue>
 
 struct Node {
 	Node();
@@ -10,6 +11,7 @@ struct Node {
 	std::list<Node*> listChilds;
 	int name;
 	static int countNodes;
+	int enterCount = 0;
 };
 
 class Graph {

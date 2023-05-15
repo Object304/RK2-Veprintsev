@@ -2,6 +2,8 @@
 using namespace std;
 
 int Node::countNodes = 0;
+bool zero = true;
+queue<Node*> stack;
 
 Node::Node() {
 	parent = nullptr;
@@ -41,23 +43,42 @@ Graph::~Graph() {
 }
 
 void Graph::buildBFS(Node*& el, int countNodes) {
+	if (countNodes == 0)
+		return;
+
+	list<Node*>::iterator it = el->listChilds.begin();
+	while (it != el->listChilds.end()) {
+		if (el->enterCount > (*it)->enterCount) {
+			buildBFS(*it, countNodes - 1);
+		}
+		it++;
+	}
+	/*for (int i = 0; i < countNodes; i++) {
+		buildBFS(*it, countNodes - 1);
+	}*/
+
+	el->enterCount++;
+
 	Node* child;
 	for (int i = 0; i < countNodes; i++) {
 		child = new Node(countNodes);
 		child->parent = el;
 		el->listChilds.push_back(child);
 	}
-	list<Node*>::iterator it = el->listChilds.begin();
-	for (int i = 0; i < countNodes; i++) {
-		buildBFS(*it, countNodes - 1);
+	if (zero) {
+		zero = false;
+		buildBFS(child->parent, countNodes);
 	}
+	/*else
+		buildBFS(child->parent, countNodes + 1);*/
 }
 
 int Graph::buildTreeBFS(int countNodes) {
 	Node* Tree = new Node(countNodes);
+	//Tree->enterCount--;
 	buildBFS(Tree, countNodes);
 	head = Tree;
-	//head->parent = nullptr;
+	head->parent = nullptr;
 	Node::countNodes = 0;
 	return 0;
 }
