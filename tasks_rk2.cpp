@@ -2,8 +2,8 @@
 using namespace std;
 
 int Node::countNodes = 0;
-bool zero = true;
 queue<Node*> stack;
+int sizeOld = 1;
 
 Node::Node() {
 	parent = nullptr;
@@ -26,68 +26,97 @@ Graph::Graph() {
 }
 
 Graph::Graph(int countNodes) {
-	if ((countNodes & 0x01) == 0x00) {
-		buildTreeBFS(countNodes);
-		return;
-	}
-	if ((countNodes & 0x01) != 0x00) {
-		buildTreeDFS(countNodes);
-		return;
-	}
-	cout << "wrong input" << endl;
-	head = nullptr;
+	sizeOld = countNodes;
+	Node* Tree = new Node(countNodes);
+	//Tree->enterCount--;
+	stack.push(Tree);
+	buildTreeBFS(countNodes);
+	head = Tree;
+	head->parent = nullptr;
+	Node::countNodes = 0;
 }
 
 Graph::~Graph() {
 	delete head;
 }
 
-void Graph::buildBFS(Node*& el, int countNodes) {
-	if (countNodes == 0)
-		return;
+//void Graph::buildBFS(Node*& el, int countNodes) {
+//	if (stack.empty())
+//		return;
+//	
+//	Node* child;
+//	for (int i = 0; i < countNodes; i++) {
+//		child = new Node(countNodes);
+//		child->parent = el;
+//		el->listChilds.push_back(child);
+//		stack.push(child);
+//	}
+//
+//
+//
+//
+//
+//	if (countNodes == 0)
+//		return;
+//	list<Node*>::iterator it = el->listChilds.begin();
+//	while (it != el->listChilds.end()) {
+//		if (el->enterCount > (*it)->enterCount) {
+//			buildBFS(*it, countNodes - 1);
+//		}
+//		it++;
+//	}
+//	/*for (int i = 0; i < countNodes; i++) {
+//		buildBFS(*it, countNodes - 1);
+//	}*/
+//
+//	el->enterCount++;
+//
+//	Node* child;
+//	for (int i = 0; i < countNodes; i++) {
+//		child = new Node(countNodes);
+//		child->parent = el;
+//		el->listChilds.push_back(child);
+//	}
+//	if (zero) {
+//		zero = false;
+//		buildBFS(child->parent, countNodes);
+//	}
+//	/*else
+//		buildBFS(child->parent, countNodes + 1);*/
+//}
 
-	list<Node*>::iterator it = el->listChilds.begin();
-	while (it != el->listChilds.end()) {
-		if (el->enterCount > (*it)->enterCount) {
-			buildBFS(*it, countNodes - 1);
-		}
-		it++;
-	}
-	/*for (int i = 0; i < countNodes; i++) {
-		buildBFS(*it, countNodes - 1);
-	}*/
-
-	el->enterCount++;
-
+int Graph::buildTreeBFS(int countNodes) {
+	Node* el = stack.front();
 	Node* child;
+	if (countNodes == 1) {
+		for (int i = 0; i < sizeOld; i++) {
+			child = new Node(countNodes);
+			child->parent = el;
+			el->listChilds.push_back(child);
+			stack.push(child);
+			stack.pop();
+		}
+		return 0;
+	}
 	for (int i = 0; i < countNodes; i++) {
 		child = new Node(countNodes);
 		child->parent = el;
 		el->listChilds.push_back(child);
+		stack.push(child);
 	}
-	if (zero) {
-		zero = false;
-		buildBFS(child->parent, countNodes);
+	stack.pop();
+	if (stack.size() == sizeOld) {
+		sizeOld *= countNodes - 1;
+		buildTreeBFS(countNodes - 1);
 	}
-	/*else
-		buildBFS(child->parent, countNodes + 1);*/
-}
-
-int Graph::buildTreeBFS(int countNodes) {
-	Node* Tree = new Node(countNodes);
-	//Tree->enterCount--;
-	buildBFS(Tree, countNodes);
-	head = Tree;
-	head->parent = nullptr;
-	Node::countNodes = 0;
+	else {
+		buildTreeBFS(countNodes);
+	}
 	return 0;
 }
 
 int Graph::buildTreeDFS(int countNodes) {
-	Node* Tree = new Node(countNodes);
-	head = Tree;
-	head->parent = nullptr;
-	return 0;
+	return -1;
 }
 
 void Graph::BFS() {

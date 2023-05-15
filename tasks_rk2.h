@@ -11,13 +11,13 @@ struct Node {
 	std::list<Node*> listChilds;
 	int name;
 	static int countNodes;
-	int enterCount = 0;
+	//int enterCount = 0;
 };
 
 class Graph {
 private:
 	Node* head;
-	void buildBFS(Node*& Tree, int countNodes);
+	//void buildBFS(Node*& Tree, int countNodes);
 
 	//здесь можно писать любые функции, которые могут понадобиться
 public:
