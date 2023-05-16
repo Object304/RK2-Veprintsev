@@ -1,6 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <list>
 #include <queue>
+#include <string>
 
 struct Node {
 	Node();
@@ -11,13 +13,17 @@ struct Node {
 	std::list<Node*> listChilds;
 	int name;
 	static int countNodes;
-	//int enterCount = 0;
 };
 
 class Graph {
 private:
 	Node* head;
 	//void buildBFS(Node*& Tree, int countNodes);
+
+	int _buildTreeBFS(int countNodes);
+	void findEl();
+	void _BFS();
+	void Destruct();
 
 	//здесь можно писать любые функции, которые могут понадобиться
 public:
