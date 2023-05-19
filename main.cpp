@@ -1,10 +1,12 @@
 ﻿#include "tasks_rk2.h"
 
 void task_1(void) {
-    /*while (true) {                                    //memory leak test
+#ifdef MEMORY_LEAK
+    while (true) {                                    //memory leak test
         Graph* gr = new Graph(5);
         delete gr;
-    }*/
+    }
+#endif
     {                                                   //build from constructor, output, search test
         Graph* gr = new Graph(5);                       //console output: 33 8 1 0; file output is tree from nameNode = 5
         gr->BFS();
