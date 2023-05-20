@@ -45,12 +45,33 @@ void task_1(void) {
         Graph* gr = new Graph;
         gr->buildTreeBFS(-10);
         gr->BFS();
+        delete gr;
     }
 
+}
+
+void task_2(void) {
+    {                                                    //build without constructor from nameNode = 3
+        Graph* gr = new Graph;                           //console output: 2, 1, 0; file output is tree from nameNode = 3
+        gr->buildTreeDFS(3);
+        gr->DFS();
+        std::pair<bool, std::list<int>> way = gr->searchDFS(3);
+        if (way.first == false) {
+            std::cout << "NO" << std::endl;
+        }
+        std::list<int>::iterator it = way.second.begin();
+        while (it != way.second.end()) {
+            std::cout << *it << std::endl;
+            it++;
+        }
+        std::cout << std::endl;
+        delete gr;
+    }
 }
 
 int main()
 {
     task_1();
+    task_2();
     return 0;
 }

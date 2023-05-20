@@ -18,11 +18,13 @@ struct Node {
 class Graph {
 private:
 	Node* head;
-	//void buildBFS(Node*& Tree, int countNodes);
 
 	int _buildTreeBFS(int countNodes);
+	int _buildTreeDFS(int countNodes, Node* el);
+
 	void findEl();
 	void _BFS();
+	void _DFS(int countNodes, Node* el);
 	void Destruct();
 
 	//здесь можно писать любые функции, которые могут понадобиться
