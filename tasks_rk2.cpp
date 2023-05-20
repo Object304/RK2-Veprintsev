@@ -178,7 +178,7 @@ void Graph::DFS() {
 	DSFcontainer = "";
 }
 
-void findDFS(int countNodes, Node* el) {
+void Graph::findDFS(int countNodes, Node* el) {
 	if (el->name == nameToFind) {
 		elToFind = el;
 		return;

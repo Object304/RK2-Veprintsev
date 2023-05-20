@@ -22,6 +22,7 @@ private:
 	int _buildTreeBFS(int countNodes);
 	int _buildTreeDFS(int countNodes, Node* el);
 
+	void findDFS(int countNodes, Node* el);
 	void findEl();
 	void _BFS();
 	void _DFS(int countNodes, Node* el);
