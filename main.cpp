@@ -45,6 +45,7 @@ void task_1(void) {
         Graph* gr = new Graph;
         gr->buildTreeBFS(-10);
         gr->BFS();
+        delete gr;
     }
 
     {
@@ -83,6 +84,7 @@ void task_2(void) {
         Graph* gr = new Graph;                            //build from wrong input, graph wasn't build, output wont't work
         gr->buildTreeDFS(-10);                            
         gr->DFS();
+        delete gr;
     }
 
     {

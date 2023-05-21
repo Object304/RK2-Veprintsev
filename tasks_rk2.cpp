@@ -50,6 +50,8 @@ void Graph::Destruct() {
 }
 
 Graph::~Graph() {
+	if (head == nullptr)
+		return;
 	stack.push(head);
 	Destruct();
 }
