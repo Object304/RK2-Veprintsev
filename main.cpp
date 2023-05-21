@@ -16,6 +16,7 @@ void task_1(void) {
             std::cout << "Element not found" << std::endl;
         }
         std::list<int>::iterator it = way.second.begin();
+        std::cout << "BFS Tree from countNodes = 5 is in file" << std::endl << "Search BFS (100)" << std::endl << "Parent line from 100:" << std::endl;
         while (it != way.second.end()) {
             std::cout << *it << std::endl;
             it++;
@@ -28,9 +29,10 @@ void task_1(void) {
         Graph* gr = new Graph;                           //console output: NO; file output is tree from nameNode = 1
         gr->buildTreeBFS(1);
         gr->BFS();
+        std::cout << "BFS tree from countNodes = 1 is in file" << std::endl << "Search BFS (5): " << std::endl;
         std::pair<bool, std::list<int>> way = gr->searchBFS(5);
         if (way.first == false) {
-            std::cout << "NO" << std::endl;
+            std::cout << "Element not found" << std::endl;
         }
         std::list<int>::iterator it = way.second.begin();
         while (it != way.second.end()) {
@@ -46,12 +48,14 @@ void task_1(void) {
         gr->buildTreeBFS(-10);
         gr->BFS();
         delete gr;
+        std::cout << "BFS graph wasn't build from wrong input (-10), output also didn't work" << std::endl << std::endl;
     }
 
     {
         Graph* gr = new Graph(0);                       //build and output from nameNode = 0
         gr->BFS();                                      //file output is tree from nameNode = 0
         delete gr;
+        std::cout << "BFS Tree from countNodes = 0 is in file" << std::endl << std::endl;
     }
 }
 
@@ -64,6 +68,7 @@ void task_2(void) {
         if (way.first == false) {
             std::cout << "NO" << std::endl;
         }
+        std::cout << "DFS Tree from countNodes = 3 is in file" << std::endl << "Search DFS (3)" << std::endl << "Parent line from 3:" << std::endl;
         std::list<int>::iterator it = way.second.begin();
         while (it != way.second.end()) {
             std::cout << *it << std::endl;
@@ -78,6 +83,7 @@ void task_2(void) {
         gr->buildTreeDFS(1);                              //file output is tree from nameNode = 1
         gr->DFS();
         delete gr;
+        std::cout << "DFS Tree from countNodes = 1 is in file" << std::endl << std::endl;
     }
 
     {
@@ -85,6 +91,7 @@ void task_2(void) {
         gr->buildTreeDFS(-10);                            
         gr->DFS();
         delete gr;
+        std::cout << "DFS graph wasn't build from wrong input (-10), output also didn't work" << std::endl << std::endl;
     }
 
     {
@@ -92,6 +99,7 @@ void task_2(void) {
         gr->buildTreeDFS(0);                              //file output is tree from nameNode = 0
         gr->DFS();
         delete gr;
+        std::cout << "DFS Tree from countNodes = 0 is in file" << std::endl;
     }
 }
 
