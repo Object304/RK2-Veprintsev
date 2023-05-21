@@ -6,7 +6,7 @@ queue<Node*> stack;
 int sizeOld = 1;
 int nameToFind;
 Node* elToFind = nullptr;
-string DSFcontainer;
+string OutContainer;
 
 Node::Node() {
 	parent = nullptr;
@@ -26,6 +26,10 @@ Graph::Graph() {
 }
 
 Graph::Graph(int countNodes) {
+	if (countNodes < 0) {
+		head = nullptr;
+		return;
+	}
 	buildTreeBFS(countNodes);
 }
 
@@ -83,6 +87,8 @@ int Graph::_buildTreeBFS(int countNodes) {
 }
 
 int Graph::buildTreeBFS(int countNodes) {
+	if (countNodes < 0)
+		return 0;
 	sizeOld = countNodes;
 	Node* Tree = new Node(countNodes); 
 	int ans = 0;
@@ -112,6 +118,8 @@ int Graph::_buildTreeDFS(int countNodes, Node* el) {
 }
 
 int Graph::buildTreeDFS(int countNodes) {
+	if (countNodes < 0)
+		return 0;
 	Node* Tree = new Node(countNodes);
 	int ans = 0;
 	if (countNodes > 0) {
@@ -140,42 +148,56 @@ void Graph::_BFS() {
 	}
 	stack.pop();
 	str[str.length() - 1] = '}';
-	FILE* fLog = fopen("bfs_res.txt", "a");
-	fprintf(fLog, "%s\n", str.c_str());
-	fclose(fLog);
+	OutContainer += str + '\n';
 	_BFS();
 }
 
 void Graph::BFS() {
+	if (head == nullptr)
+		return;
+	if (head->listChilds.empty()) {
+		FILE* fLog = fopen("bfs_res.txt", "a");
+		fprintf(fLog, "%d", head->name);
+		fclose(fLog);
+		return;
+	}
 	Node* el = head;
 	stack.push(el);
 	_BFS();
 	stack = {};
+	FILE* fLog = fopen("bfs_res.txt", "a");
+	fprintf(fLog, "%s\n", OutContainer.c_str());
+	fclose(fLog);
+	OutContainer = "";
 }
 
 void Graph::_DFS(int countNodes, Node* el) {
 	if (countNodes == -1)
 		return;
-	DSFcontainer += to_string(el->name);
+	OutContainer += to_string(el->name);
 	if (countNodes != 0)
-		DSFcontainer += "{";
+		OutContainer += "{";
 	list<Node*>::iterator it = el->listChilds.begin();
 	for (int i = 0; i < countNodes; i++) {
 		_DFS(countNodes - 1, *it);
 		if (i != countNodes - 1)
-			DSFcontainer += ",";
+			OutContainer += ",";
 		it++;
 	}
 	if (countNodes != 0)
-		DSFcontainer += '}';
+		OutContainer += '}';
 }
 
 void Graph::DFS() {
+	if (head == nullptr) {
+		OutContainer = "";
+		return;
+	}
 	_DFS(head->listChilds.size(), head);
-	FILE* fLog = fopen("dfs_res.txt", "w");
-	fprintf(fLog, "%s\n", DSFcontainer.c_str());
+	FILE* fLog = fopen("dfs_res.txt", "a");
+	fprintf(fLog, "%s\n\n", OutContainer.c_str());
 	fclose(fLog);
-	DSFcontainer = "";
+	OutContainer = "";
 }
 
 void Graph::findDFS(int countNodes, Node* el) {

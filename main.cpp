@@ -45,9 +45,13 @@ void task_1(void) {
         Graph* gr = new Graph;
         gr->buildTreeBFS(-10);
         gr->BFS();
-        delete gr;
     }
 
+    {
+        Graph* gr = new Graph(0);                       //build and output from nameNode = 0
+        gr->BFS();                                      //file output is tree from nameNode = 0
+        delete gr;
+    }
 }
 
 void task_2(void) {
@@ -65,6 +69,26 @@ void task_2(void) {
             it++;
         }
         std::cout << std::endl;
+        delete gr;
+    }
+
+    {
+        Graph* gr = new Graph;                            //build without constructor from nameNode = 1
+        gr->buildTreeDFS(1);                              //file output is tree from nameNode = 1
+        gr->DFS();
+        delete gr;
+    }
+
+    {
+        Graph* gr = new Graph;                            //build from wrong input, graph wasn't build, output wont't work
+        gr->buildTreeDFS(-10);                            
+        gr->DFS();
+    }
+
+    {
+        Graph* gr = new Graph;                            //build without constructor from nameNode = 0
+        gr->buildTreeDFS(0);                              //file output is tree from nameNode = 0
+        gr->DFS();
         delete gr;
     }
 }
